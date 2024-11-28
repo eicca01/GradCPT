@@ -663,7 +663,8 @@ console.log('Probanden-ID:', participantID);
             // add data to results object
             results.push(
             {
-                trialId: trialType[i] + '_trial' + i,
+                participantID: participantID,  // Probanden-ID hinzufügen
+		trialId: trialType[i] + '_trial' + i,
                 trialType: trialType[i],
                 image: trialImg[i],
                 trialLength: (typeof trialLength[i] !== 'undefined' &&
