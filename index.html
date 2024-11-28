@@ -80,6 +80,11 @@
     // Globals
     var scriptName;                 // the name of this script
     var testVersion;                // version identifier for this test
+	    
+const urlParams = new URLSearchParams(window.location.search);
+const participantID = urlParams.get('pid');
+console.log('Probanden-ID:', participantID);
+
     var seed;                       // RNG seed
     var frameSequence = [];         // sequence of frames and their properties
     var frame;                      // single frame
