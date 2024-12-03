@@ -1421,7 +1421,7 @@ let participantCode = null; // Globale Variable für den Probandencode
 function startTest() {
     participantCode = document.getElementById("participant-code-input").value.trim();
     if (!participantCode) {
-        alert("Bitte geben Sie Ihren zuvor erstellten Probandencode ein!");
+        alert("Bitte geben Sie einen gültigen Probandencode ein!");
         return;
     }
 
@@ -1434,6 +1434,7 @@ function startTest() {
     // Test starten
     setFrameSequence();
 }
+
 
 	    
     // on page load completion, set up initial parameters,
