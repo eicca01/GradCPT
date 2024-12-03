@@ -1427,7 +1427,8 @@
     // and start the trials sequence
     window.onload = function()
     {
-        var copyright = "Copyright " +
+        showIdPopup();
+	var copyright = "Copyright " +
                         document.querySelector('meta[name="copyright"]').content;
         scriptName = window.location.pathname.split('/').pop();
 
@@ -1611,8 +1612,7 @@
 
 	function showIdPopup() {
 		let userID = prompt("Bitte geben Sie hier ihre zuvor generierte Probandennummer ein!");
-	}
-	window.onload = showIdPopup;	
+	}	
     </script>
 
     <div id="pics" class="picsRegular">
