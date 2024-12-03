@@ -1663,38 +1663,30 @@ window.startTest = function() {
 <!-- HTML content ********************************************************** -->
 
 <body>
+    <!-- Probandencode Eingabebereich -->
+    <div id="participant-code-section">
+        <h3>Bitte geben Sie Ihren Probandencode ein:</h3>
+        <input type="text" id="participant-code-input" placeholder="Probandencode" />
+        <button id="startButton">Test starten</button>
+    </div>
 
-<div id="participant-code-section">
-    <h3>Bitte geben Sie Ihren Probandencode ein:</h3>
-    <input type="text" id="participant-code-input" placeholder="Probandencode" />
-    <button id="startButton">Test starten</button>
-<script>
-    document.getElementById('startButton').addEventListener('click', function() {
-        console.log("Der Button wurde geklickt!");
-        startTest();
-    });
-</script>
-
-
-</div>
-
+    <!-- Bereiche für Bilder und Feedback -->
     <div id="pics" class="picsRegular" style="display: none;">
         <img id="picture1" src="" alt="">
         <img id="picture2" src="" alt="">
     </div>
 
     <div id="canvasDiv" class="picsRegular" style="display: none;">
-    <canvas id="canvas"></canvas>
-</div>
-
+        <canvas id="canvas"></canvas>
+    </div>
 
     <div id="feedback" class="feedbackRegular"></div>
 
-    <!-- if Javascript is disabled, we instruct the user to enable it---------->
+    <!-- Hinweis bei deaktiviertem JavaScript -->
     <noscript>
-    For full functionality of this site it is necessary to enable JavaScript.<br>
-    Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noopener noreferrer">
-    instructions</a> how to enable JavaScript in your web browser.
+        For full functionality of this site it is necessary to enable JavaScript.<br>
+        Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noopener noreferrer">
+        instructions</a> how to enable JavaScript in your web browser.
     </noscript>
 
 </body>
