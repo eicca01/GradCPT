@@ -1623,39 +1623,40 @@ window.startTest = function() {
         
     }
 
-window.startTest = function() {
-        console.log("startTest() wird aufgerufen.");
+window.startTest = function () {
+    console.log("startTest() wird aufgerufen.");
 
-        // Probandencode einlesen
-        var participantCode = document.getElementById("participant-code-input").value.trim();
-        if (!participantCode) {
-            alert("Probandencode fehlt. Bitte erneut versuchen!");
-            console.error("Probandencode fehlt. Keine Eingabe gefunden.");
-            return;
-        }
-        console.log("Probandencode: ", participantCode);
+    // Probandencode einlesen
+    var participantCode = document.getElementById("participant-code-input").value.trim();
+    if (!participantCode) {
+        alert("Probandencode fehlt. Bitte erneut versuchen!");
+        console.error("Probandencode fehlt. Keine Eingabe gefunden.");
+        return;
+    }
+    console.log("Probandencode: ", participantCode);
 
-        // Elemente verstecken und anzeigen
-        try {
-            document.getElementById("participant-code-section").style.display = "none"; // Probandencode-Eingabebereich ausblenden
-            document.getElementById("pics").style.display = "block"; // Bilderbereich anzeigen
-            document.getElementById("canvasDiv").style.display = "block"; // Canvas-Bereich anzeigen
-            document.getElementById("feedback").style.display = "block"; // Feedbackbereich anzeigen
-        } catch (err) {
-            console.error("Fehler beim Ändern der Anzeigeelemente: ", err);
-            return;
-        }
+    // Sichtbarkeit der Elemente anpassen
+    try {
+        document.getElementById("participant-code-section").style.display = "none"; // Probandencode-Eingabebereich ausblenden
+        document.getElementById("pics").style.display = "block"; // Bilderbereich anzeigen
+        document.getElementById("canvasDiv").style.display = "block"; // Canvas-Bereich anzeigen
+        document.getElementById("feedback").style.display = "block"; // Feedbackbereich anzeigen
+    } catch (err) {
+        console.error("Fehler beim Ändern der Anzeigeelemente: ", err);
+        return;
+    }
 
-        // Testsequenz starten
-        console.log("Test wird gestartet.");
-        setFrameSequence(); // Diese Funktion initialisiert die Testsequenz
-    };
+    // Testsequenz starten
+    console.log("Test wird gestartet.");
+    setFrameSequence(); // Initialisiert die Testsequenz
+};
 
-    // Event-Listener für den Button setzen
-    document.getElementById('startButton').addEventListener('click', function() {
-        console.log("Der Button wurde geklickt!");
-        startTest(); // startTest() wird beim Klick auf den Button aufgerufen
-    });
+// Event-Listener für den Button setzen
+document.getElementById('startButton').addEventListener('click', function () {
+    console.log("Der Button wurde geklickt!");
+    startTest(); // startTest() wird beim Klick auf den Button aufgerufen
+});
+
 </script>
 <!-- end of js script ****************************************************** -->
 
