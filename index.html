@@ -44,7 +44,7 @@
      For Usage, enter:
 
        GradCPT.html?help
-
+	
      For reference see:
 
       Fortenbaugh FC et al. Sustained Attention Across the Life Span in a Sample
@@ -1421,28 +1421,36 @@ console.log("setFrameSequence() wurde aufgerufen. Test wird initialisiert.");
 let participantCode = null; // Globale Variable für den Probandencode
 
 function startTest() {
-    // Code aus dem Eingabefeld lesen
+    console.log("startTest() wird aufgerufen.");
+
+    // Probandencode einlesen
     participantCode = document.getElementById("participant-code-input").value.trim();
-
     if (!participantCode) {
-    alert("Probandencode fehlt. Bitte erneut versuchen!");
-    console.error("Probandencode fehlt. Keine Eingabe gefunden.");
-    return;
-}
-  
-// Debugging: Überprüfen, ob die Funktion aufgerufen wird
-    console.log("Probandencode eingegeben: ", participantCode);
-    // Verstecke den Eingabebereich
-    document.getElementById("participant-code-section").style.display = "none";
+        alert("Probandencode fehlt. Bitte erneut versuchen!");
+        console.error("Probandencode fehlt. Keine Eingabe gefunden.");
+        return;
+    }
+    console.log("Probandencode: ", participantCode);
 
-    // Zeige die Testbereiche an
-    document.getElementById("pics").style.display = "block";
-    document.getElementById("canvasDiv").style.display = "block";
-    document.getElementById("feedback").style.display = "block";
+    // Elemente verstecken und anzeigen
+    try {
+        document.getElementById("participant-code-section").style.display = "none";
+        document.getElementById("pics").style.display = "block";
+        document.getElementById("canvasDiv").style.display = "block";
+        document.getElementById("feedback").style.display = "block";
+        console.log("Elemente erfolgreich geändert.");
+    } catch (err) {
+        console.error("Fehler beim Ändern der Anzeigeelemente: ", err);
+        return;
+    }
 
-    // Starte den Test
+    // Testsequenz starten
+    console.log("Test wird gestartet.");
     setFrameSequence();
+console.log("setFrameSequence() wird ausgeführt.");
+
 }
+
 
 
 
