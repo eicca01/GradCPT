@@ -661,36 +661,25 @@ console.log('Probanden-ID:', participantID);
             }
 
             // add data to results object
-            results.push(
-            {
-                participantID: participantID,  // Probanden-ID hinzufügen
-		trialId: trialType[i] + '_trial' + i,
-                trialType: trialType[i],
-                image: trialImg[i],
-                trialLength: (typeof trialLength[i] !== 'undefined' &&
-                              trialLength[i] !== null) ? trialLength[i] : null,
-                go: go[i],
-                frameCount: (typeof frameCount[i] !== 'undefined' &&
-                             frameCount[i] !== null) ? frameCount[i] : null,
-                rt: (typeof rt[i] !== 'undefined' &&
-                     rt[i] !== null) ? rt[i].round(2) : null,
-                correct: (typeof correct[i] !== 'undefined' &&
-                          correct[i] !== null) ? correct[i]: null,
-                imageOpacity: (typeof imageOpacity[i] !== 'undefined' &&
-                               imageOpacity[i] !== null) ? imageOpacity[i] : null,
-                responseType: (typeof responseType[i] !== 'undefined' &&
-                               responseType[i] !== null) ? responseType[i] : null,
-                responseCode: (typeof responseCode[i] !== 'undefined' &&
-                               responseCode[i] !== 0 &&
-                               responseCode[i] !== null)? responseCode[i] : null,
-                trialTimestamp: (typeof trialTimeStamp[i] !== 'undefined' &&
-                                 trialTimeStamp[i] !== null)? trialTimeStamp[i] : null,
-                responseTimestamp: (typeof responseTimeStamp[i] !== 'undefined' &&
-                                    responseTimeStamp[i] !== null) ? responseTimeStamp[i] : null,
-                flagged: trialFlag,
-                state: (typeof state[i] !== 'undefined' &&
-                        state[i] !== null)? state[i] : null
-            });
+           results.push({
+    participantID: participantCode,  // Speichern des Probandencodes
+    trialId: trialType[i] + '_trial' + i,
+    trialType: trialType[i],
+    image: trialImg[i],
+    trialLength: (typeof trialLength[i] !== 'undefined' && trialLength[i] !== null) ? trialLength[i] : null,
+    go: go[i],
+    frameCount: (typeof frameCount[i] !== 'undefined' && frameCount[i] !== null) ? frameCount[i] : null,
+    rt: (typeof rt[i] !== 'undefined' && rt[i] !== null) ? rt[i].round(2) : null,
+    correct: (typeof correct[i] !== 'undefined' && correct[i] !== null) ? correct[i] : null,
+    imageOpacity: (typeof imageOpacity[i] !== 'undefined' && imageOpacity[i] !== null) ? imageOpacity[i] : null,
+    responseType: (typeof responseType[i] !== 'undefined' && responseType[i] !== null) ? responseType[i] : null,
+    responseCode: (typeof responseCode[i] !== 'undefined' && responseCode[i] !== 0 && responseCode[i] !== null) ? responseCode[i] : null,
+    trialTimestamp: (typeof trialTimeStamp[i] !== 'undefined' && trialTimeStamp[i] !== null) ? trialTimeStamp[i] : null,
+    responseTimestamp: (typeof responseTimeStamp[i] !== 'undefined' && responseTimeStamp[i] !== null) ? responseTimeStamp[i] : null,
+    flagged: trialFlag,
+    state: (typeof state[i] !== 'undefined' && state[i] !== null) ? state[i] : null
+});
+
         }
     }
 
@@ -1427,10 +1416,33 @@ console.log('Probanden-ID:', participantID);
                        '20pt');
     }
 
+let participantCode = null; // Globale Variable für den Probandencode
+
+function startTest() {
+    participantCode = document.getElementById("participant-code-input").value.trim();
+    if (!participantCode) {
+        alert("Bitte geben Sie Ihren zuvor erstellten Probandencode ein!");
+        return;
+    }
+
+    // Verstecke den Codeeingabebereich und zeige die Testbereiche an
+    document.getElementById("participant-code-section").style.display = "none";
+    document.getElementById("pics").style.display = "block";
+    document.getElementById("canvasDiv").style.display = "block";
+    document.getElementById("feedback").style.display = "block";
+
+    // Test starten
+    setFrameSequence();
+}
+
+	    
     // on page load completion, set up initial parameters,
     // call the frameSequence generator
     // and start the trials sequence
-    window.onload = function()
+    window.onload = function() {
+    // Standardinitialisierung bleibt bestehen, aber der Test startet erst nach Codeeingabe.
+};
+
     {
         var copyright = "Copyright " +
                         document.querySelector('meta[name="copyright"]').content;
@@ -1613,7 +1625,7 @@ console.log('Probanden-ID:', participantID);
 <body>
 
 <div id="participant-code-section">
-    <h3>Bitte geben Sie Ihren Probandencode ein:</h3>
+    <h3>Bitte geben Sie Ihren zuvor erstellten Probandencode ein:</h3>
     <input type="text" id="participant-code-input" placeholder="Probandencode" />
     <button onclick="startTest()">Test starten</button>
 </div>
