@@ -1424,11 +1424,11 @@ function startTest() {
     // Code aus dem Eingabefeld lesen
     participantCode = document.getElementById("participant-code-input").value.trim();
 
-    // Prüfen, ob der Code eingegeben wurde
     if (!participantCode) {
-        alert("Bitte geben Sie einen gültigen Probandencode ein!");
-        return;
-    }
+    alert("Probandencode fehlt. Bitte erneut versuchen!");
+    console.error("Probandencode fehlt. Keine Eingabe gefunden.");
+    return;
+}
   
 // Debugging: Überprüfen, ob die Funktion aufgerufen wird
     console.log("Probandencode eingegeben: ", participantCode);
@@ -1640,7 +1640,11 @@ function startTest() {
 <div id="participant-code-section">
     <h3>Bitte geben Sie Ihren Probandencode ein:</h3>
     <input type="text" id="participant-code-input" placeholder="Probandencode" />
-    <button onclick="startTest()">Test starten</button>
+    <button id="startButton">Test starten</button>
+<script>
+    document.getElementById('startButton').addEventListener('click', startTest);
+</script>
+
 </div>
 
     <div id="pics" class="picsRegular" style="display: none;">
