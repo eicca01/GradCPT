@@ -1176,7 +1176,9 @@ console.log('Probanden-ID:', participantID);
     // for a single trial/frame
     function setFrameSequence ()
     {
-        var testMessage, testTime;
+console.log("setFrameSequence() wurde aufgerufen. Test wird initialisiert.");
+
+	    var testMessage, testTime;
 
         // hide mouse cursor
         hideCursor("document.body");
@@ -1427,7 +1429,9 @@ function startTest() {
         alert("Bitte geben Sie einen gültigen Probandencode ein!");
         return;
     }
-
+  
+// Debugging: Überprüfen, ob die Funktion aufgerufen wird
+    console.log("Probandencode eingegeben: ", participantCode);
     // Verstecke den Eingabebereich
     document.getElementById("participant-code-section").style.display = "none";
 
@@ -1456,6 +1460,8 @@ function startTest() {
     document.getElementById("pics").style.display = "none";
     document.getElementById("canvasDiv").style.display = "none";
     document.getElementById("feedback").style.display = "none";
+
+	console.log("Seite geladen. Eingabebereich für den Probandencode sichtbar.");
 
     // Allgemeine Initialisierungen bleiben erhalten
     setBodyScale(700,600);
@@ -1643,9 +1649,10 @@ function startTest() {
         <img id="picture2" src="" alt="">
     </div>
 
-    <div id="canvasDiv" class="picsRegular">
-        <canvas id="canvas"></canvas>
-    </div>
+    <div id="canvasDiv" class="picsRegular" style="display: none;">
+    <canvas id="canvas"></canvas>
+</div>
+
 
     <div id="feedback" class="feedbackRegular"></div>
 
