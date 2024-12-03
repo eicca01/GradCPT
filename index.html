@@ -1440,26 +1440,27 @@ function startTest() {
     // call the frameSequence generator
     // and start the trials sequence
     window.onload = function() {
-    // Standardinitialisierung bleibt bestehen, aber der Test startet erst nach Codeeingabe.
-};
+    var copyright = "Copyright " +
+                    document.querySelector('meta[name="copyright"]').content;
+    scriptName = window.location.pathname.split('/').pop();
 
-    {
-        var copyright = "Copyright " +
-                        document.querySelector('meta[name="copyright"]').content;
-        scriptName = window.location.pathname.split('/').pop();
+    // Setze die Ansicht auf den Eingabebereich für den Probandencode
+    document.getElementById("participant-code-section").style.display = "block";
+    document.getElementById("pics").style.display = "none";
+    document.getElementById("canvasDiv").style.display = "none";
+    document.getElementById("feedback").style.display = "none";
 
-        // set the scale for mobile devices
-        setBodyScale(700,600);
+    // Allgemeine Initialisierungen bleiben erhalten
+    setBodyScale(700,600);
 
-        // see if they are just asking for help
-        if ((usage = getUrlParameters("help", "", true)))
-        {
-            showAlert("<p id='helpSpan'>" +
-                "<b>"+ document.title + "</b><br>" +
-                "<i>" + copyright + "</i><br><br>" +
-                "<b>Usage:</b>" +
-                "<br>" + scriptName + "?urlParam1=1&urlParam2=0<br><br>" +
-                "<b>URL Parameters</b>:<br>" +
+    // Hilfetext bei URL-Parameter "?help"
+    if ((usage = getUrlParameters("help", "", true))) {
+        showAlert("<p id='helpSpan'>" +
+            "<b>"+ document.title + "</b><br>" +
+            "<i>" + copyright + "</i><br><br>" +
+            "<b>Usage:</b>" +
+            "<br>" + scriptName + "?urlParam1=1&urlParam2=0<br><br>" +
+            "<b>URL Parameters</b>:<br>" +
                 "<i>input=testInput.txt</i> -- pictures sequence input file<br>" +
                 "<i>seed=123</i> -- random number generator seed<br>" +
                 "<i>mprop=0.1</i> -- proportion of mountain trials<br>" +
