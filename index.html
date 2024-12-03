@@ -172,7 +172,7 @@ console.log('Probanden-ID:', participantID);
 					  function ()
 					  {
 						  practiceChoice = document.getElementById('practiceSkip').checked ? 'skip' : 'noSkip';
-					setFrameSequence();
+					//setFrameSequence();
 				},
 					  '20pt');
 		},50);
@@ -1451,17 +1451,16 @@ function startTest() {
     // call the frameSequence generator
     // and start the trials sequence
     window.onload = function() {
-    var copyright = "Copyright " +
-                    document.querySelector('meta[name="copyright"]').content;
-    scriptName = window.location.pathname.split('/').pop();
-
-    // Setze die Ansicht auf den Eingabebereich für den Probandencode
+    // Zeige nur den Eingabebereich für den Probandencode
     document.getElementById("participant-code-section").style.display = "block";
+
+    // Verstecke andere Bereiche
     document.getElementById("pics").style.display = "none";
     document.getElementById("canvasDiv").style.display = "none";
     document.getElementById("feedback").style.display = "none";
 
-	console.log("Seite geladen. Eingabebereich für den Probandencode sichtbar.");
+    console.log("Seite geladen. Warte auf Eingabe des Probandencodes.");
+};
 
     // Allgemeine Initialisierungen bleiben erhalten
     setBodyScale(700,600);
