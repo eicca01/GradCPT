@@ -177,7 +177,29 @@ console.log('Probanden-ID:', participantID);
 					  '20pt');
 		},50);
 	}
-	
+
+window.startTest = function() {
+function startTest() {
+    console.log("startTest() wird aufgerufen.");
+
+    // Probandencode einlesen
+    participantCode = document.getElementById("participant-code-input").value.trim();
+    if (!participantCode) {
+        alert("Probandencode fehlt. Bitte erneut versuchen!");
+        console.error("Probandencode fehlt. Keine Eingabe gefunden.");
+        return;
+    }
+    console.log("Probandencode: ", participantCode);
+
+    // Elemente verstecken und anzeigen
+    try {
+        document.getElementById("participant-code-section").style.display = "none";
+        document.getElementById("pics").style.display = "block";
+        document.getElementById("canvasDiv").style
+
+};
+
+	    
     function ltqnorm (p)
     {
         /* Lower tail quantile for standard normal distribution function.
@@ -1419,7 +1441,6 @@ console.log("setFrameSequence() wurde aufgerufen. Test wird initialisiert.");
     }
 
 let participantCode = null; // Globale Variable für den Probandencode
-
 function startTest() {
     console.log("startTest() wird aufgerufen.");
 
@@ -1436,22 +1457,9 @@ function startTest() {
     try {
         document.getElementById("participant-code-section").style.display = "none";
         document.getElementById("pics").style.display = "block";
-        document.getElementById("canvasDiv").style.display = "block";
-        document.getElementById("feedback").style.display = "block";
-        console.log("Elemente erfolgreich geändert.");
-    } catch (err) {
-        console.error("Fehler beim Ändern der Anzeigeelemente: ", err);
-        return;
-    }
+        document.getElementById("canvasDiv").style
 
-    // Testsequenz starten
-    console.log("Test wird gestartet.");
-    setFrameSequence();
-console.log("setFrameSequence() wird ausgeführt.");
-
-}
-
-
+};
 
 
 	    
