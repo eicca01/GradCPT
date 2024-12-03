@@ -78,6 +78,7 @@
     <script type="text/javascript">
 
     // Globals
+    var userID;   		    // User-ID
     var scriptName;                 // the name of this script
     var testVersion;                // version identifier for this test
     var seed;                       // RNG seed
@@ -1595,7 +1596,11 @@
         }
         
     }
-
+	function showIDPopup() {
+		let userID = prompt("Bitte geben Sie hier ihre zuvor generierte Probandennummer ein!");
+	}
+	window.onload = showIdPopup;		
+	
     </script>
 
 <!-- end of js script ****************************************************** -->
