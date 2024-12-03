@@ -1419,37 +1419,6 @@ console.log("setFrameSequence() wurde aufgerufen. Test wird initialisiert.");
                        '20pt');
     }
 
-let participantCode = null;
-
-window.startTest = function () {
-    console.log("startTest() wird aufgerufen.");
-
-    // Probandencode einlesen
-    participantCode = document.getElementById("participant-code-input").value.trim();
-    if (!participantCode) {
-        alert("Probandencode fehlt. Bitte erneut versuchen!");
-        console.error("Probandencode fehlt. Keine Eingabe gefunden.");
-        return;
-    }
-    console.log("Probandencode: ", participantCode);
-
-    // Sichtbarkeit der Elemente anpassen
-    try {
-        document.getElementById("participant-code-section").style.display = "none"; // Eingabebereich ausblenden
-        document.getElementById("pics").style.display = "block"; // Bilderbereich anzeigen
-        document.getElementById("canvasDiv").style.display = "block"; // Canvas-Bereich anzeigen
-        document.getElementById("feedback").style.display = "block"; // Feedbackbereich anzeigen
-    } catch (err) {
-        console.error("Fehler beim Ändern der Anzeigeelemente: ", err);
-        return;
-    }
-
-    // Testsequenz starten
-    console.log("Test wird gestartet.");
-    setFrameSequence(); // Initialisiert die Testsequenz
-};
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const startButton = document.getElementById('startButton');
     if (startButton) {
