@@ -1420,7 +1420,7 @@ console.log("setFrameSequence() wurde aufgerufen. Test wird initialisiert.");
     }
 
 let participantCode = null; // Globale Variable für den Probandencode
-function startTest() {
+window.startTest = function() {
     console.log("startTest() wird aufgerufen.");
 
     // Probandencode einlesen
