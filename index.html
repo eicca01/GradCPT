@@ -1642,8 +1642,12 @@ function startTest() {
     <input type="text" id="participant-code-input" placeholder="Probandencode" />
     <button id="startButton">Test starten</button>
 <script>
-    document.getElementById('startButton').addEventListener('click', startTest);
+    document.getElementById('startButton').addEventListener('click', function() {
+        console.log("Der Button wurde geklickt!");
+        startTest();
+    });
 </script>
+
 
 </div>
 
