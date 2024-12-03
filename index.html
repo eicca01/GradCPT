@@ -1419,13 +1419,13 @@ console.log("setFrameSequence() wurde aufgerufen. Test wird initialisiert.");
                        '20pt');
     }
 
-let participantCode = null; // Globale Variable für den Probandencode
-// Überarbeitete startTest-Funktion
+let participantCode = null;
+
 window.startTest = function () {
     console.log("startTest() wird aufgerufen.");
 
     // Probandencode einlesen
-    var participantCode = document.getElementById("participant-code-input").value.trim();
+    participantCode = document.getElementById("participant-code-input").value.trim();
     if (!participantCode) {
         alert("Probandencode fehlt. Bitte erneut versuchen!");
         console.error("Probandencode fehlt. Keine Eingabe gefunden.");
@@ -1435,7 +1435,7 @@ window.startTest = function () {
 
     // Sichtbarkeit der Elemente anpassen
     try {
-        document.getElementById("participant-code-section").style.display = "none"; // Probandencode-Eingabebereich ausblenden
+        document.getElementById("participant-code-section").style.display = "none"; // Eingabebereich ausblenden
         document.getElementById("pics").style.display = "block"; // Bilderbereich anzeigen
         document.getElementById("canvasDiv").style.display = "block"; // Canvas-Bereich anzeigen
         document.getElementById("feedback").style.display = "block"; // Feedbackbereich anzeigen
@@ -1446,25 +1446,22 @@ window.startTest = function () {
 
     // Testsequenz starten
     console.log("Test wird gestartet.");
-    try {
-        setFrameSequence(); // Initialisiert die Testsequenz
-    } catch (error) {
-        console.error("Fehler beim Starten des Tests: ", error);
-    }
+    setFrameSequence(); // Initialisiert die Testsequenz
 };
 
-// Sicherstellen, dass der Event-Listener korrekt registriert wird
+
 document.addEventListener("DOMContentLoaded", function () {
-    var startButton = document.getElementById('startButton');
+    const startButton = document.getElementById('startButton');
     if (startButton) {
         startButton.addEventListener('click', function () {
-            console.log("Der Start-Button wurde geklickt.");
-            startTest();
+            console.log("Der Start-Button wurde geklickt!");
+            startTest(); // startTest() aufrufen
         });
     } else {
         console.error("Start-Button nicht gefunden!");
     }
 });
+
 
 
 	    
