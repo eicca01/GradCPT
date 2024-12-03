@@ -1419,21 +1419,27 @@ console.log('Probanden-ID:', participantID);
 let participantCode = null; // Globale Variable für den Probandencode
 
 function startTest() {
+    // Code aus dem Eingabefeld lesen
     participantCode = document.getElementById("participant-code-input").value.trim();
+
+    // Prüfen, ob der Code eingegeben wurde
     if (!participantCode) {
         alert("Bitte geben Sie einen gültigen Probandencode ein!");
         return;
     }
 
-    // Verstecke den Codeeingabebereich und zeige die Testbereiche an
+    // Verstecke den Eingabebereich
     document.getElementById("participant-code-section").style.display = "none";
+
+    // Zeige die Testbereiche an
     document.getElementById("pics").style.display = "block";
     document.getElementById("canvasDiv").style.display = "block";
     document.getElementById("feedback").style.display = "block";
 
-    // Test starten
+    // Starte den Test
     setFrameSequence();
 }
+
 
 
 	    
@@ -1627,7 +1633,7 @@ function startTest() {
 <body>
 
 <div id="participant-code-section">
-    <h3>Bitte geben Sie Ihren zuvor erstellten Probandencode ein:</h3>
+    <h3>Bitte geben Sie Ihren Probandencode ein:</h3>
     <input type="text" id="participant-code-input" placeholder="Probandencode" />
     <button onclick="startTest()">Test starten</button>
 </div>
