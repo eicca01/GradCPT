@@ -1450,7 +1450,9 @@ document.addEventListener("DOMContentLoaded", function () {
 };
 
     // Allgemeine Initialisierungen bleiben erhalten
-    setBodyScale(700,600);
+    document.addEventListener("DOMContentLoaded", function() {
+    setBodyScale(700, 600);
+});
 
     // Hilfetext bei URL-Parameter "?help"
     if ((usage = getUrlParameters("help", "", true))) {
