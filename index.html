@@ -1612,7 +1612,13 @@ console.log('Probanden-ID:', participantID);
 
 <body>
 
-    <div id="pics" class="picsRegular">
+<div id="participant-code-section">
+    <h3>Bitte geben Sie Ihren Probandencode ein:</h3>
+    <input type="text" id="participant-code-input" placeholder="Probandencode" />
+    <button onclick="startTest()">Test starten</button>
+</div>
+
+    <div id="pics" class="picsRegular" style="display: none;">
         <img id="picture1" src="" alt="">
         <img id="picture2" src="" alt="">
     </div>
