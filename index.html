@@ -1420,11 +1420,12 @@ console.log("setFrameSequence() wurde aufgerufen. Test wird initialisiert.");
     }
 
 let participantCode = null; // Globale Variable für den Probandencode
-window.startTest = function() {
+// Überarbeitete startTest-Funktion
+window.startTest = function () {
     console.log("startTest() wird aufgerufen.");
 
     // Probandencode einlesen
-    participantCode = document.getElementById("participant-code-input").value.trim();
+    var participantCode = document.getElementById("participant-code-input").value.trim();
     if (!participantCode) {
         alert("Probandencode fehlt. Bitte erneut versuchen!");
         console.error("Probandencode fehlt. Keine Eingabe gefunden.");
@@ -1432,14 +1433,38 @@ window.startTest = function() {
     }
     console.log("Probandencode: ", participantCode);
 
-    // Elemente verstecken und anzeigen
+    // Sichtbarkeit der Elemente anpassen
     try {
-        document.getElementById("participant-code-section").style.display = "none";
-        document.getElementById("pics").style.display = "block";
+        document.getElementById("participant-code-section").style.display = "none"; // Probandencode-Eingabebereich ausblenden
+        document.getElementById("pics").style.display = "block"; // Bilderbereich anzeigen
         document.getElementById("canvasDiv").style.display = "block"; // Canvas-Bereich anzeigen
         document.getElementById("feedback").style.display = "block"; // Feedbackbereich anzeigen
+    } catch (err) {
+        console.error("Fehler beim Ändern der Anzeigeelemente: ", err);
+        return;
+    }
 
+    // Testsequenz starten
+    console.log("Test wird gestartet.");
+    try {
+        setFrameSequence(); // Initialisiert die Testsequenz
+    } catch (error) {
+        console.error("Fehler beim Starten des Tests: ", error);
+    }
 };
+
+// Sicherstellen, dass der Event-Listener korrekt registriert wird
+document.addEventListener("DOMContentLoaded", function () {
+    var startButton = document.getElementById('startButton');
+    if (startButton) {
+        startButton.addEventListener('click', function () {
+            console.log("Der Start-Button wurde geklickt.");
+            startTest();
+        });
+    } else {
+        console.error("Start-Button nicht gefunden!");
+    }
+});
 
 
 	    
@@ -1623,6 +1648,7 @@ window.startTest = function() {
         
     }
 
+// Überarbeitete startTest-Funktion
 window.startTest = function () {
     console.log("startTest() wird aufgerufen.");
 
@@ -1648,15 +1674,25 @@ window.startTest = function () {
 
     // Testsequenz starten
     console.log("Test wird gestartet.");
-    setFrameSequence(); // Initialisiert die Testsequenz
+    try {
+        setFrameSequence(); // Initialisiert die Testsequenz
+    } catch (error) {
+        console.error("Fehler beim Starten des Tests: ", error);
+    }
 };
 
-// Event-Listener für den Button setzen
-document.getElementById('startButton').addEventListener('click', function () {
-    console.log("Der Button wurde geklickt!");
-    startTest(); // startTest() wird beim Klick auf den Button aufgerufen
+// Sicherstellen, dass der Event-Listener korrekt registriert wird
+document.addEventListener("DOMContentLoaded", function () {
+    var startButton = document.getElementById('startButton');
+    if (startButton) {
+        startButton.addEventListener('click', function () {
+            console.log("Der Start-Button wurde geklickt.");
+            startTest();
+        });
+    } else {
+        console.error("Start-Button nicht gefunden!");
+    }
 });
-
 </script>
 <!-- end of js script ****************************************************** -->
 
