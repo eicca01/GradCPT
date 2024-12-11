@@ -688,6 +688,62 @@
             });
         }
     }
+// Funktion zum Speichern von Daten in REDCap
+async function saveToREDCap(data) {
+    const apiUrl = "https://0C1BF9CD2AEEF1220B5EBAA851916EAD/api/"; 
+    const apiToken = "0C1BF9CD2AEEF1220B5EBAA851916EAD";
+
+    const formData = new URLSearchParams();
+    formData.append("token", apiToken);
+    formData.append("content", "record");
+    formData.append("format", "json");
+    formData.append("type", "flat");
+    formData.append("data", JSON.stringify([data]));
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData.toString()
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log("Daten erfolgreich in REDCap gespeichert:", result);
+        } else {
+            console.error("Fehler beim Speichern in REDCap:", await response.text());
+        }
+    } catch (error) {
+        console.error("Netzwerkfehler beim Speichern in REDCap:", error);
+    }
+}
+
+// Beispiel: Speichern von Testergebnissen
+function saveTestResultsToREDCap(results) {
+    // Konvertieren Sie die Ergebnisse in das REDCap-Datenformat
+    results.forEach((result, index) => {
+        const redcapData = {
+            record_id: index + 1, // Verwenden Sie eine eindeutige ID für jeden Datensatz
+            field_name_1: result.field1, // Ersetzen Sie "field_name_1" durch den Feldnamen aus Ihrem REDCap-Projekt
+            field_name_2: result.field2, // Weitere Felder entsprechend Ihrem REDCap-Projekt
+            field_name_3: result.field3 // Passen Sie die Felder nach Bedarf an
+        };
+
+        // Speichern Sie die Daten in REDCap
+        saveToREDCap(redcapData);
+    });
+}
+
+// Beispielaufruf: Ergebnisse speichern
+// Angenommen, "results" enthält die Daten, die von Ihrer Anwendung generiert wurden
+const results = [
+    { field1: "Wert1", field2: "Wert2", field3: "Wert3" },
+    { field1: "WertA", field2: "WertB", field3: "WertC" }
+];
+
+saveTestResultsToREDCap(results);
 
     function picFade()
     {
