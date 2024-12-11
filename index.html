@@ -728,11 +728,22 @@ function saveTestResultsToREDCap(results) {
     // Konvertieren Sie die Ergebnisse in das REDCap-Datenformat
     results.forEach((result, index) => {
         const redcapData = {
-            record_id: index + 1, // Verwenden Sie eine eindeutige ID für jeden Datensatz
-            field_name_1: result.field1, // Ersetzen Sie "field_name_1" durch den Feldnamen aus Ihrem REDCap-Projekt
-            field_name_2: result.field2, // Weitere Felder entsprechend Ihrem REDCap-Projekt
-            field_name_3: result.field3 // Passen Sie die Felder nach Bedarf an
-        };
+    record_id: trialType[i] + '_trial' + i,
+    trial_type: trialType[i],
+    image: trialImg[i],
+    trial_length: trialLength[i],
+    go: go[i],
+    frame_count: frameCount[i],
+    reaction_time: rt[i],
+    correctness: correct[i],
+    image_opacity: imageOpacity[i],
+    response_type: responseType[i],
+    response_code: responseCode[i],
+    trial_timestamp: trialTimeStamp[i],
+    response_timestamp: responseTimeStamp[i],
+    flagged: trialFlag,
+    state: state[i]
+};
 
         // Speichern Sie die Daten in REDCap
         saveToREDCap(redcapData);
