@@ -115,8 +115,8 @@
     var correct = [];               // response correct (0,1)
                                     // 0: no response to go; go response to no-go
                                     // 1: go response to go; no response to no-go
-    var responseCode = [];          // code assigned to current response (1-10)
-    var responseType = [];          // type of response (0,1,2)
+    var response_code = [];          // code assigned to current response (1-10)
+    var response_type = [];          // type of response (0,1,2)
                                     // 0: omission or correct withdrawal
                                     // 1: late response to a previous trial
                                     //    (image decreasing in opacity)
@@ -381,7 +381,7 @@
         {
             // fast response to first practice2 trial
             // assign to current trial
-            responseCode[n] = 9;
+            response_code[n] = 9;
             return n;
         }
         else if (rt[n] && (responseOp > highBound))
@@ -395,14 +395,14 @@
         {
             // response too early for current trial,
             // assign to previous trial
-            responseCode[n-1] = 1;
+            response_code[n-1] = 1;
             return n-1;
         }
         else if (!(rt[n]) && (responseOp > highBound))
         {
             // response is late, but still within the bounds of the current trial
             // assign to current trial
-            responseCode[n] = 2;
+            response_code[n] = 2;
             return n;
         }
         else if (((responseOp >= lowBound) && (responseOp <= highBound)) &&
@@ -410,7 +410,7 @@
         {
             // AMBIGUOUS TRIAL: RT logged for previous but not current trial
             // assign to current trial
-            responseCode[n] = 3;
+            response_code[n] = 3;
             return n;
         }
         else if (((responseOp >= lowBound) && (responseOp <= highBound)) &&
@@ -420,7 +420,7 @@
             //                  previous is a GO trial
             // assign to previous trial
             // N.B. SEE EXCEPTIONS IN FUNCTION report()
-            responseCode[n-1] = 4;
+            response_code[n-1] = 4;
             return n-1;
         }
         else if (((responseOp >= lowBound) && (responseOp <= highBound)) &&
@@ -430,7 +430,7 @@
             //                  previous trial is a GO,
             //                  current trial is a NOGO OR a scrambled
             // assign rt to previous trial
-            responseCode[n-1] = 5;
+            response_code[n-1] = 5;
             return n-1;
         }
         else if (((responseOp >= lowBound) && (responseOp <= highBound)) &&
@@ -440,7 +440,7 @@
             //                  previous trial is a NOGO OR a scrambled,
             //                  current trial is a GO OR a scrambled
             // assign rt to current trail
-            responseCode[n] = 6;
+            response_code[n] = 6;
             return n;
         }
         else if (((responseOp >= lowBound) && (responseOp <= highBound)) &&
@@ -450,7 +450,7 @@
             //                  previous trial is a scrambled,
             //                  current trial is a NOGO
             // assign rt to current trail
-            responseCode[n] = 10;
+            response_code[n] = 10;
             return n;
         }
         else if (((responseOp > midBound) && (responseOp <= highBound)) &&
@@ -460,7 +460,7 @@
             //                  previous trials, current and previous trials
             //                  are same type of trial
             // assign to current trial
-            responseCode[n] = 7;
+            response_code[n] = 7;
             return n;
         }
         else if (((responseOp >= lowBound) && (responseOp <= midBound)) &&
@@ -470,7 +470,7 @@
             //                  previous trials, current and previous trials are
             //                  same type of trial
             // assign to previous trial
-            responseCode[n-1] = 8;
+            response_code[n-1] = 8;
             return n-1;
         }
         else
@@ -530,7 +530,7 @@
                 // - 2 to a response within the current trial
                 //   (image increasing in opacity)
                 // - 0 to an omission or correct withdrawal
-                responseType[whichTrial] = (whichTrial === trial) ? 2 : 1;
+                response_type[whichTrial] = (whichTrial === trial) ? 2 : 1;
 
                 // record the opacity of the image that is fading-in
                 // at the time of the response
@@ -548,7 +548,7 @@
                 }
                 else // RT is assigned to previous trial
                 {
-                    if (responseCode[whichTrial] === 4) //  RTs assigned in opposite order
+                    if (response_code[whichTrial] === 4) //  RTs assigned in opposite order
                     {
                         // **** CORRECTIONS FOR RESPONSE CODE 4 ****
 
@@ -641,10 +641,10 @@ function saveData() {
     var trialFlag;
     for (var i = 1; i < numTrials + 1; i++) {
         if (!(rt[i])) {
-            responseType[i] = 0;
+            response_type[i] = 0;
             if (go[i] === 0) correct[i] = 1;
             else if (go[i] === 1) correct[i] = 0;
-            responseCode[i] = null;
+            response_code[i] = null;
             state[i] = null;
             responseTimeStamp[i] = null;
         }
@@ -674,8 +674,8 @@ function saveData() {
             rt: rt[i]?.toFixed(2) ?? null,
             correct: correct[i] ?? null,
             imageopacity: imageopacity[i] ?? null,
-            responseType: responseType[i] ?? null,
-            responseCode: responseCode[i] || null,
+            response_type: response_type[i] ?? null,
+            response_code: response_code[i] || null,
             trialtimestamp: trialtimestamp[i] || null,
             responseTimestamp: responseTimeStamp[i] || null,
             flagged: trialFlag,
@@ -694,8 +694,8 @@ function saveData() {
         {
             if (!(rt[i]))
             {
-                // set responseType to 0 if no response was made
-                responseType[i] = 0;
+                // set response_type to 0 if no response was made
+                response_type[i] = 0;
 
                 // set accuracy for trials where no response was made
                 if (go[i] === 0) correct[i] = 1;
@@ -703,7 +703,7 @@ function saveData() {
 
                 // set response code, state, and response timestamp to null
                 // if no response was made
-                responseCode[i] = null;
+                response_code[i] = null;
                 state[i] = null;
                 responseTimeStamp[i] = null;
             }
@@ -754,11 +754,11 @@ function saveData() {
                           correct[i] !== null) ? correct[i]: null,
                 imageopacity: (typeof imageopacity[i] !== 'undefined' &&
                                imageopacity[i] !== null) ? imageopacity[i] : null,
-                responseType: (typeof responseType[i] !== 'undefined' &&
-                               responseType[i] !== null) ? responseType[i] : null,
-                responseCode: (typeof responseCode[i] !== 'undefined' &&
-                               responseCode[i] !== 0 &&
-                               responseCode[i] !== null)? responseCode[i] : null,
+                response_type: (typeof response_type[i] !== 'undefined' &&
+                               response_type[i] !== null) ? response_type[i] : null,
+                response_code: (typeof response_code[i] !== 'undefined' &&
+                               response_code[i] !== 0 &&
+                               response_code[i] !== null)? response_code[i] : null,
                 trialtimestamp: (typeof trialtimestamp[i] !== 'undefined' &&
                                  trialtimestamp[i] !== null)? trialtimestamp[i] : null,
                 responseTimestamp: (typeof responseTimeStamp[i] !== 'undefined' &&
@@ -779,10 +779,10 @@ function saveData() {
 
 		// reset all arrays to their initial state
 		// TODO: we should use an object here instead of arrays
-        responseCode = [];
+        response_code = [];
         rt = [];
         correct = [];
-        responseType = [];
+        response_type = [];
         triallength = [];
         percentImage = [];
         imageopacity = [];
@@ -790,7 +790,7 @@ function saveData() {
         framecount = [];
         trialtype = [];
         trialImg = [];
-        responseCode = [];
+        response_code = [];
         responseTimeStamp = [];
         trialtimestamp = [];
         state = [];
