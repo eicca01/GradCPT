@@ -78,7 +78,7 @@
     <script type="text/javascript">
 
     // Globals
-    var userID;   		    // User-ID
+    var userid;   		    // User-ID
     var scriptName;                 // the name of this script
     var testVersion;                // version identifier for this test
     var seed;                       // RNG seed
@@ -103,9 +103,9 @@
                                     // (low resolution)
     var lastEvent = 0;				// timestamp for most recent response event
                                     // (high resolution)
-    var trialLength = [];           // duration of trial (high resolution)
-    var frameCount = [];			// number of frames on this trial
-    var trialType = [];             // type of trial (practice2-3, test)
+    var triallength = [];           // duration of trial (high resolution)
+    var framecount = [];			// number of frames on this trial
+    var trialtype = [];             // type of trial (practice2-3, test)
     var trialImg = [];              // current rising image
     var rt = [];                    // reaction time (high resolution)
     var go = [];                    // go-nogo trial
@@ -123,11 +123,11 @@
                                     // 2: response within the current trial
                                     //    (image increasing in opacity)
     var percentImage = [];          // opacity of picture gaining opacity at response (0-1)
-    var imageOpacity = [];			// opacity of picture that the response was assigned to
+    var imageopacity = [];			// opacity of picture that the response was assigned to
     var pressTime = [];			    // time of presses in ms from start of test
                                     // for each trial (high resolution)
     var responseTimeStamp = [];		// timestamps of response (low resolution)
-    var trialTimeStamp = [];		// timestamps of trials beginning (low resolution)
+    var trialtimestamp = [];		// timestamps of trials beginning (low resolution)
     var qcMaxAllowedStreak = 75;    // maximum number of consecutive trials
                                     // participant can omit before getting qc flagged
     var noRespStreak = 0;			// qc variable for logging how many
@@ -544,7 +544,7 @@
                     rt[whichTrial] = pressTime[whichTrial] - trialStart[whichTrial];
 
                     // log opacity of image that RT was assigned to
-                    imageOpacity[whichTrial] = (responseOp * 100).round(0);
+                    imageopacity[whichTrial] = (responseOp * 100).round(0);
                 }
                 else // RT is assigned to previous trial
                 {
@@ -556,7 +556,7 @@
                         // --- (later trial response timestamp - previous image start)
                         rt[whichTrial] = pressTime[whichTrial+1] -
                                          trialStart[whichTrial];
-                        imageOpacity[whichTrial] = 100 - percentImage[whichTrial+1];
+                        imageopacity[whichTrial] = 100 - percentImage[whichTrial+1];
                         tmpTimestamp = responseTimeStamp[whichTrial];
                         responseTimeStamp[whichTrial] = responseTimeStamp[whichTrial + 1];
 
@@ -564,7 +564,7 @@
                         // --- (previous response timestamp - current image start)
                         rt[whichTrial+1] = pressTime[whichTrial] -
                                            trialStart[whichTrial+1];
-                        imageOpacity[whichTrial+1] = percentImage[whichTrial];
+                        imageopacity[whichTrial+1] = percentImage[whichTrial];
                         responseTimeStamp[whichTrial + 1] = tmpTimestamp;
                     }
                     else // RTs assigned in correct chronological order
@@ -573,7 +573,7 @@
                         rt[whichTrial] = pressTime[whichTrial] - trialStart[whichTrial];
 
                         // log opacity of image that RT was assigned to
-                        imageOpacity[whichTrial] = 100 - (responseOp * 100).round(0);
+                        imageopacity[whichTrial] = 100 - (responseOp * 100).round(0);
                     }
                 }
 
@@ -649,8 +649,8 @@ function saveData() {
             responseTimeStamp[i] = null;
         }
         trialFlag = null;
-        if (trialType[i] === 'test') {
-            if (trialLength[i] > 1600) {
+        if (trialtype[i] === 'test') {
+            if (triallength[i] > 1600) {
                 trialFlag = 1;
             } else {
                 trialFlag = 0;
@@ -665,18 +665,18 @@ function saveData() {
             }
         }
         results.push({
-            trialId: trialType[i] + '_trial' + i,
-            trialType: trialType[i],
+            trialid: trialtype[i] + '_trial' + i,
+            trialtype: trialtype[i],
             image: trialImg[i],
-            trialLength: trialLength[i] ?? null,
+            triallength: triallength[i] ?? null,
             go: go[i],
-            frameCount: frameCount[i] ?? null,
+            framecount: framecount[i] ?? null,
             rt: rt[i]?.toFixed(2) ?? null,
             correct: correct[i] ?? null,
-            imageOpacity: imageOpacity[i] ?? null,
+            imageopacity: imageopacity[i] ?? null,
             responseType: responseType[i] ?? null,
             responseCode: responseCode[i] || null,
-            trialTimestamp: trialTimeStamp[i] || null,
+            trialtimestamp: trialtimestamp[i] || null,
             responseTimestamp: responseTimeStamp[i] || null,
             flagged: trialFlag,
             state: state[i] || null,
@@ -709,10 +709,10 @@ function saveData() {
             }
 
             trialFlag = null;
-            if (trialType[i] === 'test')
+            if (trialtype[i] === 'test')
             {
-                // we qc flag test trial if trialLength > 1600 ms
-                if (trialLength[i] > 1600)
+                // we qc flag test trial if triallength > 1600 ms
+                if (triallength[i] > 1600)
                 {
                     trialFlag = 1;
                 }
@@ -740,27 +740,27 @@ function saveData() {
             // add data to results object
             results.push(
             {
-                trialId: trialType[i] + '_trial' + i,
-                trialType: trialType[i],
+                trialid: trialtype[i] + '_trial' + i,
+                trialtype: trialtype[i],
                 image: trialImg[i],
-                trialLength: (typeof trialLength[i] !== 'undefined' &&
-                              trialLength[i] !== null) ? trialLength[i] : null,
+                triallength: (typeof triallength[i] !== 'undefined' &&
+                              triallength[i] !== null) ? triallength[i] : null,
                 go: go[i],
-                frameCount: (typeof frameCount[i] !== 'undefined' &&
-                             frameCount[i] !== null) ? frameCount[i] : null,
+                framecount: (typeof framecount[i] !== 'undefined' &&
+                             framecount[i] !== null) ? framecount[i] : null,
                 rt: (typeof rt[i] !== 'undefined' &&
                      rt[i] !== null) ? rt[i].round(2) : null,
                 correct: (typeof correct[i] !== 'undefined' &&
                           correct[i] !== null) ? correct[i]: null,
-                imageOpacity: (typeof imageOpacity[i] !== 'undefined' &&
-                               imageOpacity[i] !== null) ? imageOpacity[i] : null,
+                imageopacity: (typeof imageopacity[i] !== 'undefined' &&
+                               imageopacity[i] !== null) ? imageopacity[i] : null,
                 responseType: (typeof responseType[i] !== 'undefined' &&
                                responseType[i] !== null) ? responseType[i] : null,
                 responseCode: (typeof responseCode[i] !== 'undefined' &&
                                responseCode[i] !== 0 &&
                                responseCode[i] !== null)? responseCode[i] : null,
-                trialTimestamp: (typeof trialTimeStamp[i] !== 'undefined' &&
-                                 trialTimeStamp[i] !== null)? trialTimeStamp[i] : null,
+                trialtimestamp: (typeof trialtimestamp[i] !== 'undefined' &&
+                                 trialtimestamp[i] !== null)? trialtimestamp[i] : null,
                 responseTimestamp: (typeof responseTimeStamp[i] !== 'undefined' &&
                                     responseTimeStamp[i] !== null) ? responseTimeStamp[i] : null,
                 flagged: trialFlag,
@@ -783,16 +783,16 @@ function saveData() {
         rt = [];
         correct = [];
         responseType = [];
-        trialLength = [];
+        triallength = [];
         percentImage = [];
-        imageOpacity = [];
+        imageopacity = [];
         pressTime = [];	
-        frameCount = [];
-        trialType = [];
+        framecount = [];
+        trialtype = [];
         trialImg = [];
         responseCode = [];
         responseTimeStamp = [];
-        trialTimeStamp = [];
+        trialtimestamp = [];
         state = [];
         trialStart = [];
         trial = 0;
@@ -816,9 +816,9 @@ function saveData() {
                     // timestamp the new trial
                     trialStart[trial] = now(); // high resolution timer
                     trialStartUnix = Date.now(); // low resolution timer
-                    trialTimeStamp[trial] = trialStartUnix; // low resolution timer
+                    trialtimestamp[trial] = trialStartUnix; // low resolution timer
 
-                    trialType[trial] = frame.type;
+                    trialtype[trial] = frame.type;
                 }
 
                 // increment opacity
@@ -850,10 +850,10 @@ function saveData() {
                 if(op === 1)
                 {
                     // compute previous trial length
-                    trialLength[trial] = (now() - trialStart[trial]).round(2);
+                    triallength[trial] = (now() - trialStart[trial]).round(2);
 
                     // log number of frames for this trial
-                    frameCount[trial] = frame_count;
+                    framecount[trial] = frame_count;
 
                     // terminate if last trial
                     if(trial === numTrials + 1)
@@ -941,8 +941,8 @@ function saveData() {
             // timestamp the new trial
             trialStartUnix = Date.now();
             trialStart[trial] = now();
-            trialType[trial] = frame.type;
-            trialTimeStamp[trial] = trialStartUnix;
+            trialtype[trial] = frame.type;
+            trialtimestamp[trial] = trialStartUnix;
 
             // draw the images on the canvas
             ctx.globalAlpha = (1 - op).round(6);
@@ -1131,7 +1131,7 @@ function saveData() {
             // extract test trials, correct trials and correct go trials
             tmp1 = results.filter(function (obj)
             {
-                return obj.trialType === 'test' && obj.go !== 2;
+                return obj.trialtype === 'test' && obj.go !== 2;
             });
             tmp2 = tmp1.filter(function (obj)
             {
@@ -1209,11 +1209,11 @@ function saveData() {
             // qc flag for high omission error rate
             outcomes.flag_omissionErrorRate = outcomes.goAccuracy < .5 ? 1 : 0;
 
-            // qc flag for trialLength of flagged trials exceeding 60,000 ms
+            // qc flag for triallength of flagged trials exceeding 60,000 ms
             flaggedTrials = tmp1.filter(function (obj)
             {
                 return obj.flagged === 1;
-            }).pluck('trialLength');
+            }).pluck('triallength');
             outcomes.flag_trialFlags = flaggedTrials.sum() > 60000 ? 1 : 0;
 
             // qc flag for participant not responding for 75 consecutive trials
@@ -1692,7 +1692,7 @@ function saveData() {
     <script>
 
 	function showIdPopup() {
-		let userID = prompt("Bitte geben Sie hier ihren zuvor generierte Probanden-Code ein! \n \n"+
+		let userid = prompt("Bitte geben Sie hier ihren zuvor generierte Probanden-Code ein! \n \n"+
 				     "Hier ist noch einmal die Anleitung: \n"+
 				     "Bitte erstellen Sie hier zuerst mithilfe der folgenden Anleitung Ihren eigenen Probanden-Code. \n \n"+ 
 
